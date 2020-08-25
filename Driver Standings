@@ -1,0 +1,32 @@
+DROP TABLE driverstandings
+
+CREATE TABLE driverstandings(
+driverstandingsId INT,
+raceId INT,
+driverId INT,
+points FLOAT,
+position INT,
+positionText INT,
+wins INT,
+PRIMARY KEY(driverstandingsId)
+);
+
+BULK INSERT driverstandings
+    FROM 'C:\Users\Jake Bonnici\Desktop\sql\datasets\Formula_one\driverStandings.csv'
+    WITH 
+    (
+    DATAFILETYPE = 'char',
+    --FORMAT = 'CSV',
+    FIRSTROW = 2,
+    FIELDTERMINATOR = ',', --CSV field delimiter
+    ROWTERMINATOR = '\n',  --Use to shift the control to next row
+   	TABLOCK
+    );
+    
+   
+   SELECT * FROM driverstandings
+   
+   
+
+   
+   
