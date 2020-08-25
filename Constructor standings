@@ -1,0 +1,83 @@
+DROP TABLE constructorStandings
+
+CREATE TABLE constructorStandings(
+constructorStandingsId INT ,
+raceId INT,
+constructorId INT,
+points float,
+position INT,
+positionText float,
+wins INT
+PRIMARY KEY(constructorStandingsId)
+);
+
+
+BULK INSERT constructorStandings
+    FROM 'C:\Users\Jake Bonnici\Desktop\sql\datasets\Formula_one\constructorStandings.csv'
+    WITH 
+    (
+    DATAFILETYPE = 'char',
+    --FORMAT = 'CSV',
+    FIRSTROW = 2,
+    FIELDTERMINATOR = ',', --CSV field delimiter
+    ROWTERMINATOR = '\n',  --Use to shift the control to next row
+   	TABLOCK
+    );
+
+   SELECT * FROM constructorStandings
+   --ORDER BY points DESC; 
+    
+   SELECT COUNT(wins) FROM constructorStandings
+   UNION
+   SELECT AVG(points) FROM constructorStandings
+   UNION
+   SELECT SUM(wins) as 'Sum of Wins'
+   FROM constructorStandings 
+   GROUP BY wins
+   --ORDER BY wins DESC
+   
+   SELECT DISTINCT wins FROM constructorStandings
+   
+   SELECT *
+   FROM constructorStandings
+   WHERE constructorStandingsId LIKE ' 2%';
+  
+  SELECT drivers.driverId, drivers.forename
+  FROM drivers
+  WHERE drivers.driverId IN(
+  	SELECT driverStandings.driverId 
+  	FROM driverstandings
+  	WHERE driverstandings.points > 22
+  );
+ 
+  
+  CREATE TABLE trigger_test(
+  		message VARCHAR(100)
+  )
+  
+create trigger [trigger_name] 
+[before | after]  
+{insert | update | delete}  
+on [table_name]  
+[for each row]  
+[trigger_body] 
+
+
+CREATE TRIGGER my_trigger
+before INSERT ON drivers
+FOR EACH ROW
+INSERT INTO trigger_test VALUES('Added new driver')
+END $$
+
+
+SELECT d1.driverId, d1.driverRef, ds1.points 
+FROM drivers as d1
+RIGHT JOIN driverstandings as ds1
+ON d1.driverId = ds1.driverId
+  
+  
+  
+  
+   
+   
+   
