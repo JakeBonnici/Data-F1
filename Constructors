@@ -1,0 +1,22 @@
+CREATE TABLE constructors(
+constructorId INT ,
+constructorRef varchar(255),
+name varchar(255),
+nationality varchar(255),
+url varchar(2048),
+PRIMARY KEY(constructorId)
+);
+
+BULK INSERT constructors
+    FROM 'C:\Users\Jake Bonnici\Desktop\sql\datasets\Formula_one\constructors.csv'
+    WITH 
+    (
+    DATAFILETYPE = 'char',
+    --FORMAT = 'CSV',
+    FIRSTROW = 2,
+    FIELDTERMINATOR = ',', --CSV field delimiter
+    ROWTERMINATOR = '\n',  --Use to shift the control to next row
+   	TABLOCk
+    );
+    
+   SELECT * FROM constructors
