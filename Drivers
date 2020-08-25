@@ -1,0 +1,82 @@
+CREATE TABLE drivers(
+driverId INT ,
+driverRef varchar(255),
+number INT,
+code varchar(255),
+forename varchar(255),
+surname varchar(255),
+dob date,
+nationality varchar(255),
+url varchar(2048),
+PRIMARY KEY(driverId)
+);
+
+BULK INSERT drivers
+    FROM 'C:\Users\Jake Bonnici\Desktop\sql\datasets\Formula_one\drivers.csv'
+    WITH 
+    (
+    FORMAT = 'CSV',
+    FIRSTROW = 2,
+    FIELDTERMINATOR = ',',  --CSV field delimiter
+    ROWTERMINATOR = '\n',  --Use to shift the control to next row
+   	TABLOCK
+    );
+    
+  	SELECT * FROM drivers
+  	
+  	UPDATE drivers
+  	SET nationality = 'Germ'
+  	WHERE nationality = 'German'
+  	
+  	UPDATE drivers
+  	SET nationality = 'Brit'
+  	WHERE nationality = 'British'
+  	
+  	UPDATE drivers
+  	SET nationality = 'Spa'
+  	WHERE nationality = 'Spanish'
+  	
+  	--DELETE FROM formula_one
+  	--WHERE driverId = 6
+  	
+  	SELECT * FROM drivers
+  
+  
+  	SELECT drivers.driverId, drivers.forename, drivers.driverRef  
+  	FROM drivers
+  	ORDER BY forename, driverId ASC 
+  	SELECT TOP 2 * FROM drivers
+  	
+	SELECT driverId, DriverRef, nationality, forename  FROM drivers
+	WHERE nationality <> 'French'
+	
+	SELECT *
+	FROM drivers
+	WHERE nationality IN ('Finnish', 'Germ', 'Spa', 'Brazilian') AND driverId > 5;
+
+
+	SELECT * FROM drivers
+	DELETE FROM drivers
+	WHERE number IS NULL 
+	
+  	
+  SELECT drivers.driverId, drivers.driverRef, constructorStandings.points 
+  FROM drivers
+  LEFT JOIN constructorStandings
+  ON drivers.driverId = constructorStandings.constructorStandingsId  
+  
+  SELECT driverstandings.driverId 
+  FROM driverstandings
+  WHERE driverstandings.driverId IN(
+  	SELECT constructorstandings
+  	
+  
+  )
+  
+  
+  
+  
+  
+ 
+  	
+  	
